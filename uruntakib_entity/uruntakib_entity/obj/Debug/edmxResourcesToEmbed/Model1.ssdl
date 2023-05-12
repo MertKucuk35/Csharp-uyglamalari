@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="alisverisModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kullanici_ad" Type="varchar" MaxLength="20" />
+    <Property Name="sifre" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="markalar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="marka_ad" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="musteri">
+    <Key>
+      <PropertyRef Name="musteri_id" />
+    </Key>
+    <Property Name="musteri_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ad" Type="varchar" MaxLength="20" />
+    <Property Name="soyad" Type="varchar" MaxLength="20" />
+    <Property Name="sehir_no" Type="smallint" />
+    <Property Name="bakiye" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="satislar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="urun" Type="int" />
+    <Property Name="musteri" Type="int" />
+    <Property Name="adet" Type="tinyint" />
+    <Property Name="fiyat" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="toplam" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="tarih" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sehirler">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sehir" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="urun_tur">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tur" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="urunler">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="urun_ad" Type="varchar" MaxLength="30" />
+    <Property Name="marka_no" Type="smallint" />
+    <Property Name="tur_no" Type="smallint" />
+    <Property Name="alis_fiyat" Type="smallmoney" />
+    <Property Name="satisfiyat" Type="smallmoney" />
+    <Property Name="stok" Type="smallint" />
+  </EntityType>
+  <Association Name="FK_musteri_sehirler">
+    <End Role="sehirler" Type="Self.sehirler" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="musteri" Type="Self.musteri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sehirler">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="musteri">
+        <PropertyRef Name="sehir_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_satislar_musteri">
+    <End Role="musteri" Type="Self.musteri" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="satislar" Type="Self.satislar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="musteri">
+        <PropertyRef Name="musteri_id" />
+      </Principal>
+      <Dependent Role="satislar">
+        <PropertyRef Name="musteri" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_satislar_urunler">
+    <End Role="urunler" Type="Self.urunler" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="satislar" Type="Self.satislar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="urunler">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="satislar">
+        <PropertyRef Name="urun" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_urunler_markalar">
+    <End Role="markalar" Type="Self.markalar" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="urunler" Type="Self.urunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="markalar">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="urunler">
+        <PropertyRef Name="marka_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_urunler_urun_tur">
+    <End Role="urun_tur" Type="Self.urun_tur" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="urunler" Type="Self.urunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="urun_tur">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="urunler">
+        <PropertyRef Name="tur_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="alisverisModelStoreContainer">
+    <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="markalar" EntityType="Self.markalar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="musteri" EntityType="Self.musteri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="satislar" EntityType="Self.satislar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sehirler" EntityType="Self.sehirler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="urun_tur" EntityType="Self.urun_tur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="urunler" EntityType="Self.urunler" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_musteri_sehirler" Association="Self.FK_musteri_sehirler">
+      <End Role="sehirler" EntitySet="sehirler" />
+      <End Role="musteri" EntitySet="musteri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_satislar_musteri" Association="Self.FK_satislar_musteri">
+      <End Role="musteri" EntitySet="musteri" />
+      <End Role="satislar" EntitySet="satislar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_satislar_urunler" Association="Self.FK_satislar_urunler">
+      <End Role="urunler" EntitySet="urunler" />
+      <End Role="satislar" EntitySet="satislar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_urunler_markalar" Association="Self.FK_urunler_markalar">
+      <End Role="markalar" EntitySet="markalar" />
+      <End Role="urunler" EntitySet="urunler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_urunler_urun_tur" Association="Self.FK_urunler_urun_tur">
+      <End Role="urun_tur" EntitySet="urun_tur" />
+      <End Role="urunler" EntitySet="urunler" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

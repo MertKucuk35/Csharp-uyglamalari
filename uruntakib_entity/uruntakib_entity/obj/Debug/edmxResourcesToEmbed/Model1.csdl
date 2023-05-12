@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="alisverisModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kullanici_ad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sifre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="musteri">
+    <Key>
+      <PropertyRef Name="musteri_id" />
+    </Key>
+    <Property Name="musteri_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="soyad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sehir_no" Type="Int16" />
+    <Property Name="bakiye" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="satislar" Relationship="Self.FK_satislar_musteri" FromRole="musteri" ToRole="satislar" />
+    <NavigationProperty Name="sehirler" Relationship="alisverisModel.FK_musteri_sehirler" FromRole="musteri" ToRole="sehirler" />
+  </EntityType>
+  <EntityType Name="satislar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="urun" Type="Int32" />
+    <Property Name="musteri" Type="Int32" />
+    <Property Name="adet" Type="Byte" />
+    <Property Name="fiyat" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="toplam" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="tarih" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="musteri1" Relationship="Self.FK_satislar_musteri" FromRole="satislar" ToRole="musteri" />
+    <NavigationProperty Name="urunler" Relationship="Self.FK_satislar_urunler" FromRole="satislar" ToRole="urunler" />
+  </EntityType>
+  <EntityType Name="urun_tur">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tur" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="urunler" Relationship="Self.FK_urunler_urun_tur" FromRole="urun_tur" ToRole="urunler" />
+  </EntityType>
+  <EntityType Name="urunler">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="urun_ad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="marka_no" Type="Int16" />
+    <Property Name="tur_no" Type="Int16" />
+    <Property Name="alis_fiyat" Type="Decimal" Precision="10" Scale="4" />
+    <Property Name="satisfiyat" Type="Decimal" Precision="10" Scale="4" />
+    <Property Name="stok" Type="Int16" />
+    <NavigationProperty Name="satislar" Relationship="Self.FK_satislar_urunler" FromRole="urunler" ToRole="satislar" />
+    <NavigationProperty Name="urun_tur" Relationship="Self.FK_urunler_urun_tur" FromRole="urunler" ToRole="urun_tur" />
+    <NavigationProperty Name="markalar" Relationship="alisverisModel.FK_urunler_markalar" FromRole="urunler" ToRole="markalar" />
+  </EntityType>
+  <Association Name="FK_satislar_musteri">
+    <End Role="musteri" Type="Self.musteri" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="satislar" Type="Self.satislar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="musteri">
+        <PropertyRef Name="musteri_id" />
+      </Principal>
+      <Dependent Role="satislar">
+        <PropertyRef Name="musteri" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_satislar_urunler">
+    <End Role="urunler" Type="Self.urunler" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="satislar" Type="Self.satislar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="urunler">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="satislar">
+        <PropertyRef Name="urun" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_urunler_urun_tur">
+    <End Role="urun_tur" Type="Self.urun_tur" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="urunler" Type="Self.urunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="urun_tur">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="urunler">
+        <PropertyRef Name="tur_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="alisverisEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="admin" EntityType="Self.admin" />
+    <EntitySet Name="musteri" EntityType="Self.musteri" />
+    <EntitySet Name="satislar" EntityType="Self.satislar" />
+    <EntitySet Name="urun_tur" EntityType="Self.urun_tur" />
+    <EntitySet Name="urunler" EntityType="Self.urunler" />
+    <AssociationSet Name="FK_satislar_musteri" Association="Self.FK_satislar_musteri">
+      <End Role="musteri" EntitySet="musteri" />
+      <End Role="satislar" EntitySet="satislar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_satislar_urunler" Association="Self.FK_satislar_urunler">
+      <End Role="urunler" EntitySet="urunler" />
+      <End Role="satislar" EntitySet="satislar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_urunler_urun_tur" Association="Self.FK_urunler_urun_tur">
+      <End Role="urun_tur" EntitySet="urun_tur" />
+      <End Role="urunler" EntitySet="urunler" />
+    </AssociationSet>
+    <EntitySet Name="markalar" EntityType="alisverisModel.markalar" />
+    <EntitySet Name="sehirler" EntityType="alisverisModel.sehirler" />
+    <AssociationSet Name="FK_urunler_markalar" Association="alisverisModel.FK_urunler_markalar">
+      <End Role="markalar" EntitySet="markalar" />
+      <End Role="urunler" EntitySet="urunler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_musteri_sehirler" Association="alisverisModel.FK_musteri_sehirler">
+      <End Role="sehirler" EntitySet="sehirler" />
+      <End Role="musteri" EntitySet="musteri" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="markalar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="marka_ad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="urunler" Relationship="alisverisModel.FK_urunler_markalar" FromRole="markalar" ToRole="urunler" />
+  </EntityType>
+  <EntityType Name="sehirler">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sehir" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="musteri" Relationship="alisverisModel.FK_musteri_sehirler" FromRole="sehirler" ToRole="musteri" />
+  </EntityType>
+  <Association Name="FK_urunler_markalar">
+    <End Type="alisverisModel.markalar" Role="markalar" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="alisverisModel.urunler" Role="urunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="markalar">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="urunler">
+        <PropertyRef Name="marka_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_musteri_sehirler">
+    <End Type="alisverisModel.sehirler" Role="sehirler" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="alisverisModel.musteri" Role="musteri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sehirler">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="musteri">
+        <PropertyRef Name="sehir_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ogrencisinavModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="akademisyenler">
+    <Key>
+      <PropertyRef Name="akademisyen_id" />
+    </Key>
+    <Property Name="akademisyen_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="akademisyen_ad" Type="nvarchar" MaxLength="25" />
+    <Property Name="akademisyen_soyad" Type="nvarchar" MaxLength="25" />
+    <Property Name="akademisyen_cinsiyet" Type="bit" />
+    <Property Name="akademisyen_unvan" Type="nvarchar" MaxLength="25" />
+    <Property Name="akademisyen_numara" Type="char" MaxLength="5" />
+    <Property Name="akademisyen_sifre" Type="nvarchar" MaxLength="10" />
+    <Property Name="akademisyen_mail" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="bolumler">
+    <Key>
+      <PropertyRef Name="bolum_id" />
+    </Key>
+    <Property Name="bolum_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bolum_ad" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="dersler">
+    <Key>
+      <PropertyRef Name="ders_id" />
+    </Key>
+    <Property Name="ders_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ders_ad" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="notlar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sinav1" Type="tinyint" />
+    <Property Name="sinav2" Type="tinyint" />
+    <Property Name="sinav3" Type="tinyint" />
+    <Property Name="quiz1" Type="tinyint" />
+    <Property Name="quiz2" Type="tinyint" />
+    <Property Name="proje" Type="tinyint" />
+    <Property Name="ortalama" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="ders" Type="int" />
+    <Property Name="ogrenci" Type="int" />
+  </EntityType>
+  <EntityType Name="ogrenciler">
+    <Key>
+      <PropertyRef Name="ogr_id" />
+    </Key>
+    <Property Name="ogr_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ogr_ad" Type="nvarchar" MaxLength="25" />
+    <Property Name="ogr_soyad" Type="nvarchar" MaxLength="25" />
+    <Property Name="ogr_cinsiyet" Type="bit" />
+    <Property Name="ogr_numara" Type="char" MaxLength="5" />
+    <Property Name="ogr_sifre" Type="nvarchar" MaxLength="10" />
+    <Property Name="ogr_mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="ogr_resim" Type="nvarchar" MaxLength="200" />
+    <Property Name="bolum" Type="int" />
+    <Property Name="durum" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ogrencisinav.dbo.notlistele' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="notlistele">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="ogr_ad" Type="nvarchar" MaxLength="25" />
+    <Property Name="ogr_soyad" Type="nvarchar" MaxLength="25" />
+    <Property Name="sinav1" Type="tinyint" />
+    <Property Name="sinav2" Type="tinyint" />
+    <Property Name="sinav3" Type="tinyint" />
+    <Property Name="quiz1" Type="tinyint" />
+    <Property Name="quiz2" Type="tinyint" />
+    <Property Name="proje" Type="tinyint" />
+    <Property Name="ortalama" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="ders" Type="int" />
+    <Property Name="ders_ad" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_notlar_dersler">
+    <End Role="dersler" Type="Self.dersler" Multiplicity="0..1" />
+    <End Role="notlar" Type="Self.notlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dersler">
+        <PropertyRef Name="ders_id" />
+      </Principal>
+      <Dependent Role="notlar">
+        <PropertyRef Name="ders" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_notlar_ogrenciler">
+    <End Role="ogrenciler" Type="Self.ogrenciler" Multiplicity="0..1" />
+    <End Role="notlar" Type="Self.notlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ogrenciler">
+        <PropertyRef Name="ogr_id" />
+      </Principal>
+      <Dependent Role="notlar">
+        <PropertyRef Name="ogrenci" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ogrenciler_bolumler">
+    <End Role="bolumler" Type="Self.bolumler" Multiplicity="0..1" />
+    <End Role="ogrenciler" Type="Self.ogrenciler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bolumler">
+        <PropertyRef Name="bolum_id" />
+      </Principal>
+      <Dependent Role="ogrenciler">
+        <PropertyRef Name="bolum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ogrencisinavModelStoreContainer">
+    <EntitySet Name="akademisyenler" EntityType="Self.akademisyenler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bolumler" EntityType="Self.bolumler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="dersler" EntityType="Self.dersler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="notlar" EntityType="Self.notlar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ogrenciler" EntityType="Self.ogrenciler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="notlistele" EntityType="Self.notlistele" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [notlistele].[id] AS [id], 
+    [notlistele].[ogr_ad] AS [ogr_ad], 
+    [notlistele].[ogr_soyad] AS [ogr_soyad], 
+    [notlistele].[sinav1] AS [sinav1], 
+    [notlistele].[sinav2] AS [sinav2], 
+    [notlistele].[sinav3] AS [sinav3], 
+    [notlistele].[quiz1] AS [quiz1], 
+    [notlistele].[quiz2] AS [quiz2], 
+    [notlistele].[proje] AS [proje], 
+    [notlistele].[ortalama] AS [ortalama], 
+    [notlistele].[ders] AS [ders], 
+    [notlistele].[ders_ad] AS [ders_ad]
+    FROM [dbo].[notlistele] AS [notlistele]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_notlar_dersler" Association="Self.FK_notlar_dersler">
+      <End Role="dersler" EntitySet="dersler" />
+      <End Role="notlar" EntitySet="notlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_notlar_ogrenciler" Association="Self.FK_notlar_ogrenciler">
+      <End Role="ogrenciler" EntitySet="ogrenciler" />
+      <End Role="notlar" EntitySet="notlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ogrenciler_bolumler" Association="Self.FK_ogrenciler_bolumler">
+      <End Role="bolumler" EntitySet="bolumler" />
+      <End Role="ogrenciler" EntitySet="ogrenciler" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

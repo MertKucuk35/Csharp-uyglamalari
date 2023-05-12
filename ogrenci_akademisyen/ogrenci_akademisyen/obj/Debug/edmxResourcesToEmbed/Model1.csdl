@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ogrencisinavModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="akademisyenler">
+    <Key>
+      <PropertyRef Name="akademisyen_id" />
+    </Key>
+    <Property Name="akademisyen_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="akademisyen_ad" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="akademisyen_soyad" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="akademisyen_cinsiyet" Type="Boolean" />
+    <Property Name="akademisyen_unvan" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="akademisyen_numara" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="akademisyen_sifre" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="akademisyen_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="bolumler">
+    <Key>
+      <PropertyRef Name="bolum_id" />
+    </Key>
+    <Property Name="bolum_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bolum_ad" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ogrenciler" Relationship="Self.FK_ogrenciler_bolumler" FromRole="bolumler" ToRole="ogrenciler" />
+  </EntityType>
+  <EntityType Name="dersler">
+    <Key>
+      <PropertyRef Name="ders_id" />
+    </Key>
+    <Property Name="ders_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ders_ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="notlar" Relationship="Self.FK_notlar_dersler" FromRole="dersler" ToRole="notlar" />
+  </EntityType>
+  <EntityType Name="notlar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sinav1" Type="Byte" />
+    <Property Name="sinav2" Type="Byte" />
+    <Property Name="sinav3" Type="Byte" />
+    <Property Name="quiz1" Type="Byte" />
+    <Property Name="quiz2" Type="Byte" />
+    <Property Name="proje" Type="Byte" />
+    <Property Name="ortalama" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="ders" Type="Int32" />
+    <Property Name="ogrenci" Type="Int32" />
+    <NavigationProperty Name="dersler" Relationship="Self.FK_notlar_dersler" FromRole="notlar" ToRole="dersler" />
+    <NavigationProperty Name="ogrenciler" Relationship="Self.FK_notlar_ogrenciler" FromRole="notlar" ToRole="ogrenciler" />
+  </EntityType>
+  <EntityType Name="ogrenciler">
+    <Key>
+      <PropertyRef Name="ogr_id" />
+    </Key>
+    <Property Name="ogr_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ogr_ad" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="ogr_soyad" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="ogr_cinsiyet" Type="Boolean" />
+    <Property Name="ogr_numara" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="ogr_sifre" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ogr_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ogr_resim" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="bolum" Type="Int32" />
+    <Property Name="durum" Type="Boolean" />
+    <NavigationProperty Name="bolumler" Relationship="Self.FK_ogrenciler_bolumler" FromRole="ogrenciler" ToRole="bolumler" />
+    <NavigationProperty Name="notlar" Relationship="Self.FK_notlar_ogrenciler" FromRole="ogrenciler" ToRole="notlar" />
+  </EntityType>
+  <Association Name="FK_ogrenciler_bolumler">
+    <End Role="bolumler" Type="Self.bolumler" Multiplicity="0..1" />
+    <End Role="ogrenciler" Type="Self.ogrenciler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bolumler">
+        <PropertyRef Name="bolum_id" />
+      </Principal>
+      <Dependent Role="ogrenciler">
+        <PropertyRef Name="bolum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_notlar_dersler">
+    <End Role="dersler" Type="Self.dersler" Multiplicity="0..1" />
+    <End Role="notlar" Type="Self.notlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dersler">
+        <PropertyRef Name="ders_id" />
+      </Principal>
+      <Dependent Role="notlar">
+        <PropertyRef Name="ders" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_notlar_ogrenciler">
+    <End Role="ogrenciler" Type="Self.ogrenciler" Multiplicity="0..1" />
+    <End Role="notlar" Type="Self.notlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ogrenciler">
+        <PropertyRef Name="ogr_id" />
+      </Principal>
+      <Dependent Role="notlar">
+        <PropertyRef Name="ogrenci" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ogrencisinavEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="akademisyenler" EntityType="Self.akademisyenler" />
+    <EntitySet Name="bolumler" EntityType="Self.bolumler" />
+    <EntitySet Name="dersler" EntityType="Self.dersler" />
+    <EntitySet Name="notlar" EntityType="Self.notlar" />
+    <EntitySet Name="ogrenciler" EntityType="Self.ogrenciler" />
+    <AssociationSet Name="FK_ogrenciler_bolumler" Association="Self.FK_ogrenciler_bolumler">
+      <End Role="bolumler" EntitySet="bolumler" />
+      <End Role="ogrenciler" EntitySet="ogrenciler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_notlar_dersler" Association="Self.FK_notlar_dersler">
+      <End Role="dersler" EntitySet="dersler" />
+      <End Role="notlar" EntitySet="notlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_notlar_ogrenciler" Association="Self.FK_notlar_ogrenciler">
+      <End Role="ogrenciler" EntitySet="ogrenciler" />
+      <End Role="notlar" EntitySet="notlar" />
+    </AssociationSet>
+    <EntitySet Name="notlistele" EntityType="ogrencisinavModel.notlistele" />
+  </EntityContainer>
+  <EntityType Name="notlistele">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="ogr_ad" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="ogr_soyad" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="sinav1" Type="Byte" />
+    <Property Name="sinav2" Type="Byte" />
+    <Property Name="sinav3" Type="Byte" />
+    <Property Name="quiz1" Type="Byte" />
+    <Property Name="quiz2" Type="Byte" />
+    <Property Name="proje" Type="Byte" />
+    <Property Name="ortalama" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="ders" Type="Int32" />
+    <Property Name="ders_ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

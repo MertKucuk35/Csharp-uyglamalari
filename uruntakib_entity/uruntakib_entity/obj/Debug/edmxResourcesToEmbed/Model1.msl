@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="alisverisModelStoreContainer" CdmEntityContainer="alisverisEntities">
+    <EntitySetMapping Name="admin">
+      <EntityTypeMapping TypeName="alisverisModel.admin">
+        <MappingFragment StoreEntitySet="admin">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="kullanici_ad" ColumnName="kullanici_ad" />
+          <ScalarProperty Name="sifre" ColumnName="sifre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="musteri">
+      <EntityTypeMapping TypeName="alisverisModel.musteri">
+        <MappingFragment StoreEntitySet="musteri">
+          <ScalarProperty Name="musteri_id" ColumnName="musteri_id" />
+          <ScalarProperty Name="ad" ColumnName="ad" />
+          <ScalarProperty Name="soyad" ColumnName="soyad" />
+          <ScalarProperty Name="sehir_no" ColumnName="sehir_no" />
+          <ScalarProperty Name="bakiye" ColumnName="bakiye" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="satislar">
+      <EntityTypeMapping TypeName="alisverisModel.satislar">
+        <MappingFragment StoreEntitySet="satislar">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="urun" ColumnName="urun" />
+          <ScalarProperty Name="musteri" ColumnName="musteri" />
+          <ScalarProperty Name="adet" ColumnName="adet" />
+          <ScalarProperty Name="fiyat" ColumnName="fiyat" />
+          <ScalarProperty Name="toplam" ColumnName="toplam" />
+          <ScalarProperty Name="tarih" ColumnName="tarih" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="urun_tur">
+      <EntityTypeMapping TypeName="alisverisModel.urun_tur">
+        <MappingFragment StoreEntitySet="urun_tur">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Tur" ColumnName="Tur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="urunler">
+      <EntityTypeMapping TypeName="alisverisModel.urunler">
+        <MappingFragment StoreEntitySet="urunler">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="urun_ad" ColumnName="urun_ad" />
+          <ScalarProperty Name="marka_no" ColumnName="marka_no" />
+          <ScalarProperty Name="tur_no" ColumnName="tur_no" />
+          <ScalarProperty Name="alis_fiyat" ColumnName="alis_fiyat" />
+          <ScalarProperty Name="satisfiyat" ColumnName="satisfiyat" />
+          <ScalarProperty Name="stok" ColumnName="stok" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="markalar">
+      <EntityTypeMapping TypeName="alisverisModel.markalar">
+        <MappingFragment StoreEntitySet="markalar">
+          <ScalarProperty Name="marka_ad" ColumnName="marka_ad" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sehirler">
+      <EntityTypeMapping TypeName="alisverisModel.sehirler">
+        <MappingFragment StoreEntitySet="sehirler">
+          <ScalarProperty Name="sehir" ColumnName="sehir" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

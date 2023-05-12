@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ogrencisinavModelStoreContainer" CdmEntityContainer="ogrencisinavEntities">
+    <EntitySetMapping Name="akademisyenler">
+      <EntityTypeMapping TypeName="ogrencisinavModel.akademisyenler">
+        <MappingFragment StoreEntitySet="akademisyenler">
+          <ScalarProperty Name="akademisyen_id" ColumnName="akademisyen_id" />
+          <ScalarProperty Name="akademisyen_ad" ColumnName="akademisyen_ad" />
+          <ScalarProperty Name="akademisyen_soyad" ColumnName="akademisyen_soyad" />
+          <ScalarProperty Name="akademisyen_cinsiyet" ColumnName="akademisyen_cinsiyet" />
+          <ScalarProperty Name="akademisyen_unvan" ColumnName="akademisyen_unvan" />
+          <ScalarProperty Name="akademisyen_numara" ColumnName="akademisyen_numara" />
+          <ScalarProperty Name="akademisyen_sifre" ColumnName="akademisyen_sifre" />
+          <ScalarProperty Name="akademisyen_mail" ColumnName="akademisyen_mail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bolumler">
+      <EntityTypeMapping TypeName="ogrencisinavModel.bolumler">
+        <MappingFragment StoreEntitySet="bolumler">
+          <ScalarProperty Name="bolum_id" ColumnName="bolum_id" />
+          <ScalarProperty Name="bolum_ad" ColumnName="bolum_ad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dersler">
+      <EntityTypeMapping TypeName="ogrencisinavModel.dersler">
+        <MappingFragment StoreEntitySet="dersler">
+          <ScalarProperty Name="ders_id" ColumnName="ders_id" />
+          <ScalarProperty Name="ders_ad" ColumnName="ders_ad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ogrenciler">
+      <EntityTypeMapping TypeName="ogrencisinavModel.ogrenciler">
+        <MappingFragment StoreEntitySet="ogrenciler">
+          <ScalarProperty Name="ogr_id" ColumnName="ogr_id" />
+          <ScalarProperty Name="ogr_ad" ColumnName="ogr_ad" />
+          <ScalarProperty Name="ogr_soyad" ColumnName="ogr_soyad" />
+          <ScalarProperty Name="ogr_cinsiyet" ColumnName="ogr_cinsiyet" />
+          <ScalarProperty Name="ogr_numara" ColumnName="ogr_numara" />
+          <ScalarProperty Name="ogr_sifre" ColumnName="ogr_sifre" />
+          <ScalarProperty Name="ogr_mail" ColumnName="ogr_mail" />
+          <ScalarProperty Name="ogr_resim" ColumnName="ogr_resim" />
+          <ScalarProperty Name="bolum" ColumnName="bolum" />
+          <ScalarProperty Name="durum" ColumnName="durum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="notlar">
+      <EntityTypeMapping TypeName="ogrencisinavModel.notlar">
+        <MappingFragment StoreEntitySet="notlar">
+          <ScalarProperty Name="ogrenci" ColumnName="ogrenci" />
+          <ScalarProperty Name="ders" ColumnName="ders" />
+          <ScalarProperty Name="ortalama" ColumnName="ortalama" />
+          <ScalarProperty Name="proje" ColumnName="proje" />
+          <ScalarProperty Name="quiz2" ColumnName="quiz2" />
+          <ScalarProperty Name="quiz1" ColumnName="quiz1" />
+          <ScalarProperty Name="sinav3" ColumnName="sinav3" />
+          <ScalarProperty Name="sinav2" ColumnName="sinav2" />
+          <ScalarProperty Name="sinav1" ColumnName="sinav1" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="notgetir2" FunctionName="ogrencisinavModel.Store.notgetir2">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ogrencisinavModel.notgetir2_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Öğrenci" ColumnName="Öğrenci" />
+          <ScalarProperty Name="ders_ad" ColumnName="ders_ad" />
+          <ScalarProperty Name="sinav1" ColumnName="sinav1" />
+          <ScalarProperty Name="sinav2" ColumnName="sinav2" />
+          <ScalarProperty Name="sinav3" ColumnName="sinav3" />
+          <ScalarProperty Name="quiz1" ColumnName="quiz1" />
+          <ScalarProperty Name="quiz2" ColumnName="quiz2" />
+          <ScalarProperty Name="proje" ColumnName="proje" />
+          <ScalarProperty Name="ortalama" ColumnName="ortalama" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="notlistele">
+      <EntityTypeMapping TypeName="ogrencisinavModel.notlistele">
+        <MappingFragment StoreEntitySet="notlistele">
+          <ScalarProperty Name="ders_ad" ColumnName="ders_ad" />
+          <ScalarProperty Name="ders" ColumnName="ders" />
+          <ScalarProperty Name="ortalama" ColumnName="ortalama" />
+          <ScalarProperty Name="proje" ColumnName="proje" />
+          <ScalarProperty Name="quiz2" ColumnName="quiz2" />
+          <ScalarProperty Name="quiz1" ColumnName="quiz1" />
+          <ScalarProperty Name="sinav3" ColumnName="sinav3" />
+          <ScalarProperty Name="sinav2" ColumnName="sinav2" />
+          <ScalarProperty Name="sinav1" ColumnName="sinav1" />
+          <ScalarProperty Name="ogr_soyad" ColumnName="ogr_soyad" />
+          <ScalarProperty Name="ogr_ad" ColumnName="ogr_ad" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="notgetir7" FunctionName="ogrencisinavModel.Store.notgetir7">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ogrencisinavModel.notgetir7_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Öğrenci" ColumnName="Öğrenci" />
+          <ScalarProperty Name="ders_ad" ColumnName="ders_ad" />
+          <ScalarProperty Name="sinav1" ColumnName="sinav1" />
+          <ScalarProperty Name="sinav2" ColumnName="sinav2" />
+          <ScalarProperty Name="sinav3" ColumnName="sinav3" />
+          <ScalarProperty Name="quiz1" ColumnName="quiz1" />
+          <ScalarProperty Name="quiz2" ColumnName="quiz2" />
+          <ScalarProperty Name="proje" ColumnName="proje" />
+          <ScalarProperty Name="ortalama" ColumnName="ortalama" />
+          <ScalarProperty Name="ders" ColumnName="ders" />
+          <ScalarProperty Name="ogrenci" ColumnName="ogrenci" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="notgetir8" FunctionName="ogrencisinavModel.Store.notgetir8">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ogrencisinavModel.notgetir8_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Öğrenci" ColumnName="Öğrenci" />
+          <ScalarProperty Name="ders_ad" ColumnName="ders_ad" />
+          <ScalarProperty Name="sinav1" ColumnName="sinav1" />
+          <ScalarProperty Name="sinav2" ColumnName="sinav2" />
+          <ScalarProperty Name="sinav3" ColumnName="sinav3" />
+          <ScalarProperty Name="quiz1" ColumnName="quiz1" />
+          <ScalarProperty Name="quiz2" ColumnName="quiz2" />
+          <ScalarProperty Name="proje" ColumnName="proje" />
+          <ScalarProperty Name="ortalama" ColumnName="ortalama" />
+          <ScalarProperty Name="ders" ColumnName="ders" />
+          <ScalarProperty Name="ogrenci" ColumnName="ogrenci" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="notgetir9" FunctionName="ogrencisinavModel.Store.notgetir9">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ogrencisinavModel.notgetir9_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Öğrenci" ColumnName="Öğrenci" />
+          <ScalarProperty Name="ders_ad" ColumnName="ders_ad" />
+          <ScalarProperty Name="sinav1" ColumnName="sinav1" />
+          <ScalarProperty Name="sinav2" ColumnName="sinav2" />
+          <ScalarProperty Name="sinav3" ColumnName="sinav3" />
+          <ScalarProperty Name="quiz1" ColumnName="quiz1" />
+          <ScalarProperty Name="quiz2" ColumnName="quiz2" />
+          <ScalarProperty Name="proje" ColumnName="proje" />
+          <ScalarProperty Name="ortalama" ColumnName="ortalama" />
+          <ScalarProperty Name="ders" ColumnName="ders" />
+          <ScalarProperty Name="ogrenci" ColumnName="ogrenci" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
